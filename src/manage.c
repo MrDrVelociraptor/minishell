@@ -6,7 +6,7 @@
 /*   By: nspeedy <nspeedy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 12:56:33 by nspeedy           #+#    #+#             */
-/*   Updated: 2022/07/14 13:01:53 by nspeedy          ###   ########.fr       */
+/*   Updated: 2022/07/18 17:58:07 by nspeedy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,9 @@ int	child_process(int old_p[], int new_p[], int i)
 			g_d.command = find_path(g_d.command_args);
 		else
 			g_d.command = g_d.command_args[0];
-		if (exportal(g_d.command_args))
-			g_d.command_args = NULL;
-		else
-		{
-			execve(g_d.command, g_d.command_args, environ);
-			perror("execve");
-		}
+		print_envs();
+		execve(g_d.command, g_d.command_args, environ);
+		perror("execve");
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: nspeedy <nspeedy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 12:51:11 by nspeedy           #+#    #+#             */
-/*   Updated: 2022/07/15 14:58:23 by nspeedy          ###   ########.fr       */
+/*   Updated: 2022/07/18 17:31:11 by nspeedy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,4 @@ void	exsit(char *cmdline, char **arglist)
 		exit_code = ft_atoi(arglist[1]);
 		exit(exit_code);
 	}
-}
-
-int	it_strchr(const char *s, int c)
-{
-	while (*s != c)
-	{
-		if (*s == '\0')
-			return (0);
-		s++;
-	}
-	return (1);
 }

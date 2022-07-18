@@ -6,7 +6,7 @@
 /*   By: nspeedy <nspeedy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 15:45:14 by nspeedy           #+#    #+#             */
-/*   Updated: 2022/07/15 16:07:24 by nspeedy          ###   ########.fr       */
+/*   Updated: 2022/07/18 18:03:42 by nspeedy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_data
 	int		cmd_amt;
 	int		pid;
 	int		statval;
+	char	**envs;
 }	t_data;
 
 typedef struct s_split
@@ -62,6 +63,11 @@ typedef struct s_dollar
 	int		envi;
 }	t_dollar;
 
+typedef struct s_env
+{
+	char			**envs;
+}	t_env;
+
 
 extern char	**environ;
 char		*find_path(char *cmd[]);
@@ -85,9 +91,13 @@ char    	*replace(char *n_args, t_dollar *d);
 t_dollar    *find(char *n_args, t_dollar *d);
 void		rm_quote(char *str);
 bool		exportal(char **cmargs);
-bool    	over_write(char **cmargs);
 char    	**env_keys(char **environ);
-int			it_strchr(const char *s, int c);
-bool		check_key(char *cmargs);
-bool		new_env(char **cmargs);
+bool		check_key(char **cmargs);
+bool		add_new(char **cmargs);
+int			env_size(char **environ);
+bool		e_unset(char **cmargs);
+void		ft_fill_envs(t_enviro *env, char **environ);
+void		print_envs(void);
+
+
 #endif

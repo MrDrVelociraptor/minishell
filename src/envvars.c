@@ -6,7 +6,7 @@
 /*   By: nspeedy <nspeedy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:21:36 by nspeedy           #+#    #+#             */
-/*   Updated: 2022/07/15 16:07:59 by nspeedy          ###   ########.fr       */
+/*   Updated: 2022/07/18 18:12:47 by nspeedy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,85 +14,40 @@
 
 extern t_data	g_d;
 
-bool	over_write(char **cmargs)
+void	ft_fill_envs(t_env *env, char **envn)
 {
-	int		i;
-	char	*tmp;
+	int	i;
 
 	i = 0;
-	if (ft_strncmp("export", cmargs[0], 6) == 0 && cmargs[1])
+	env = malloc(sizeof(t_env));
+	if (!env)
+		return ;
+	env->envs = calloc(sizeof(char *), env_size(envn));
+	while (envn[i])
 	{
-		if (check_key(cmargs[1]) == true)
-		{
-			while (environ[i])
-			{
-				tmp = ft_strchr(environ[i], '=') + 1;
-				if (ft_strncmp(environ[i], cmargs[1],
-						ft_strlen(environ[i]) - ft_strlen(tmp)) == 0)
-				{
-					ft_calloc(sizeof(char *), ft_strlen(environ[i]));
-					environ[i] = ft_strdup(cmargs[1]);
-				}
-				i++;
-			}
-			execve("export", g_d.command_args, environ);
-			return (true);
-		}
+		env->envs[i] = ft_strdup(envn[i]);
+		i++;
 	}
-	return (false);
 }
 
-bool	new_env(char **cmargs)
+void	print_envs(void)
 {
-	int		i;
+	t_env		*e;
+	int			i;
 
 	i = 0;
-	if (ft_strncmp("export", cmargs[0], 6) == 0 && cmargs[1])
+	ft_fill_envs(&e, environ);
+	while (e->envs && e->envs[i])
 	{
-		if (check_key(cmargs[1]) == false)
-		{
-			while (environ[i])
-				i++;
-			if (it_strchr(cmargs[1], '=') == 1)
-			{
-				environ[i] = ft_calloc(sizeof(char *), ft_strlen(cmargs[1]));
-				environ[i] = ft_strdup(cmargs[1]);
-			}
-		}
-		//execve("export", g_d.command_args, environ);
-		return (true);
-    }
-    return (false);
-}
-
-bool	print_env(char **cmargs)
-{
-	int		i;
-	char	*t;
-	char	*x;
-
-	i = 0;
-	if (ft_strncmp("export", cmargs[0], 6) == 0 && !cmargs[1])
-	{
-		while (environ[i])
-		{
-			t = ft_strchr(environ[i], '=') + 1;
-			x = ft_substr(environ[i], 0, ft_strlen(environ[i]) - ft_strlen(t));
-			ft_printf("%s%s\n", x, t);
-			i++;
-		}
-		return (true);
+		printf("%s\n", e->envs[i]);
+		i++;
 	}
-	return (false);
 }
 
-bool	exportal(char **cmargs)
-{
-	if (print_env(cmargs))
-		return (true);
-	if (over_write(cmargs))
-		return (true);
-	if (new_env(cmargs))
-		return (true);
-	return (false);
-}
+need append func
+	- Loop through exisiting t_env envs to get array size + 2
+	1 for new string & null byte
+	- Duplicate all members into new char **.
+	- Add new string to last element in char **.
+	- Free the old array.
+	- Assign old array to point to new char **.
