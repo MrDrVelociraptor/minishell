@@ -20,6 +20,7 @@ int	main(void)
 	int		old_p[2];
 
 	siggles();
+	g_d.env = ft_fill_envs();
 	g_d.cmdline = readline(">>> ");
 	while (g_d.cmdline != NULL)
 	{

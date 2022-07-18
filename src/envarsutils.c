@@ -31,15 +31,13 @@ char	**env_keys(char **environ)
 		t = ft_strchr(environ[j], '=') + 1;
 		keys[j] = ft_substr(environ[j], 0,
 				ft_strlen(environ[j]) - ft_strlen(t));
-		//printf("keys[j] ==== %s\n", keys[j]);
-		
 		j++;
 	}
 	keys[j] = NULL;
 	return (keys);
 }
 
-bool	check_key(char **cmargs)
+bool	check_key(char *cmargs)
 {
 	int		i;
 	char	*c;
@@ -47,8 +45,13 @@ bool	check_key(char **cmargs)
 	char	**keys;
 
 	i = 0;
-	c = ft_strchr(cmargs[1], '=') + 1;
-	tmp = ft_substr(cmargs[1], 0, ft_strlen(cmargs[1]) - ft_strlen(c));
+	if (cmargs == NULL)
+		return (true);
+	c = ft_strchr(cmargs, '=') + 1;
+	printf("c === %s\n", c);
+	tmp = ft_substr(cmargs, 0, ft_strlen(cmargs) - ft_strlen(c));
+	printf("c === %s\n", tmp);
+
 	keys = env_keys(environ);
 	while (keys[i])
 	{

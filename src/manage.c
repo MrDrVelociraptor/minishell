@@ -50,9 +50,13 @@ int	child_process(int old_p[], int new_p[], int i)
 			g_d.command = find_path(g_d.command_args);
 		else
 			g_d.command = g_d.command_args[0];
-		print_envs();
-		execve(g_d.command, g_d.command_args, environ);
-		perror("execve");
+		if (exportal(g_d.command_args))
+			g_d.command_args = NULL;
+		else
+		{
+			execve(g_d.command, g_d.command_args, environ);
+			perror("execve");
+		}
 	}
 	return (0);
 }

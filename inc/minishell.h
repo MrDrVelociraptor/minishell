@@ -37,7 +37,7 @@ typedef struct s_data
 	int		cmd_amt;
 	int		pid;
 	int		statval;
-	char	**envs;
+	char	**env;
 }	t_data;
 
 typedef struct s_split
@@ -65,7 +65,7 @@ typedef struct s_dollar
 
 typedef struct s_env
 {
-	char			**envs;
+	char			**n_env;
 }	t_env;
 
 
@@ -92,12 +92,12 @@ t_dollar    *find(char *n_args, t_dollar *d);
 void		rm_quote(char *str);
 bool		exportal(char **cmargs);
 char    	**env_keys(char **environ);
-bool		check_key(char **cmargs);
-bool		add_new(char **cmargs);
+bool		check_key(char *cmargs);
 int			env_size(char **environ);
-bool		e_unset(char **cmargs);
-void		ft_fill_envs(t_enviro *env, char **environ);
+char		**ft_fill_envs(void);
 void		print_envs(void);
+void		add_var(char **cmargs);
+
 
 
 #endif
