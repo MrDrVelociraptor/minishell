@@ -63,17 +63,14 @@ void	ch_var(char **cmargs)
 	i = 0;
 	while (g_d.env && g_d.env[i])
 		i++;
-	// tmp = malloc(sizeof(t_env) * i);
 	i = 0;
 	while (g_d.env && g_d.env[i])
 	{
 		tmp = ft_strchr(g_d.env[i], '=') + 1;
-		printf("tmp = %s\n", tmp);
 		if (ft_strncmp(g_d.env[i], cmargs[1], ft_strlen(g_d.env[i]) - ft_strlen(tmp)) == 0)
 			g_d.env[i] = ft_strdup(cmargs[1]);
 		i++;
 	}
-	// execve("export", g_d.command_args, g_d.env);
 }
 
 void	add_var(char **cmargs)
@@ -97,38 +94,21 @@ void	add_var(char **cmargs)
 	free(g_d.env);
 	tmp[i + 1] = '\0';
 	g_d.env = tmp;
-	// execve("export", g_d.command_args, g_d.env);
 }
 
-bool	exportal(char **cmargs)
+void	exportal(char **cmargs)
 {
 	if (ft_strncmp("export", cmargs[0], 6) == 0 && cmargs[1])
 	{
 		if (check_key(cmargs[1]) == false)
-		{
-			printf("hello false\n");
 			add_var(cmargs);
-			return (true);
-		}
 	}
 	if (ft_strncmp("export", cmargs[0], 6) == 0 && cmargs[1])
 	{
 		if (check_key(cmargs[1]) == true)
-		{
-			printf("hello true\n");
 			ch_var(cmargs);
-			return (true);
-		}
 	}
 	else 
 		print_envs();
-	return (false);
 }
 
-// need append func
-// 	- Loop through exisiting t_env envs to get array size + 2
-// 	1 for new string & null byte
-// 	- Duplicate all members into new char **.
-// 	- Add new string to last element in char **.
-// 	- Free the old array.
-// 	- Assign old array to point to new char **.

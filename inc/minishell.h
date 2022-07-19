@@ -90,7 +90,7 @@ char		**space_split(const char *s, char delim);
 char    	*replace(char *n_args, t_dollar *d);
 t_dollar    *find(char *n_args, t_dollar *d);
 void		rm_quote(char *str);
-bool		exportal(char **cmargs);
+void		exportal(char **cmargs);
 char    	**env_keys(char **environ);
 bool		check_key(char *cmargs);
 int			env_size(char **environ);

@@ -48,10 +48,7 @@ bool	check_key(char *cmargs)
 	if (cmargs == NULL)
 		return (true);
 	c = ft_strchr(cmargs, '=') + 1;
-	printf("c === %s\n", c);
 	tmp = ft_substr(cmargs, 0, ft_strlen(cmargs) - ft_strlen(c));
-	printf("tmp === %s\n", tmp);
-
 	keys = env_keys(g_d.env);
 	while (keys[i])
 	{
