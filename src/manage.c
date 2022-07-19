@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 12:56:33 by nspeedy           #+#    #+#             */
-/*   Updated: 2022/07/19 15:03:55 by alex             ###   ########.fr       */
+/*   Updated: 2022/07/19 16:41:32 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,15 @@ int	child_process(int old_p[], int new_p[], int i)
 		while (g_d.command_args[j])
 			rm_quote(g_d.command_args[j++]);
 		run_ex_un_env(g_d.command_args);
+		cd();
 		if (access(g_d.command_args[0], X_OK) != 0)
 			g_d.command = find_path(g_d.command_args);
 		else
 			g_d.command = g_d.command_args[0];
-		if ((ft_strncmp(g_d.command_args[0], "export", 6) != 0) && ft_strncmp(g_d.command_args[0], "unset", 5) != 0)
+		if (ft_strncmp(g_d.command_args[0], "export", 6) && ft_strncmp(g_d.command_args[0], "unset", 5) && ft_strncmp(g_d.command_args[0], "cd", 2))
 		{
 			execve(g_d.command, g_d.command_args, g_d.env);
-			perror("execve");
+			printf("%s: command not found\n", g_d.command_args[0]);
 		}
 	}
 	return (0);

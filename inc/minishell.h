@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 15:45:14 by nspeedy           #+#    #+#             */
-/*   Updated: 2022/07/19 14:56:33 by alex             ###   ########.fr       */
+/*   Updated: 2022/07/19 15:41:39 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void		ch_var(char **cmargs);
 void		rm_var(char **cmargs);
 void		run_ex_un_env(char **cmargs);
 bool		check_key_un(char *cmargs);
+int			cd(void);
 
 
 
