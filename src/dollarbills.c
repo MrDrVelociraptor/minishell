@@ -44,11 +44,11 @@ char	*dollar_bils(char *n_args)
         if (n_args[d.i++] == '$')
         {
             find(n_args, &d);
-            while (environ[d.envi])
+            while (g_d.env[d.envi])
             {
-                if (ft_strncmp(d.tmp, environ[d.envi], ft_strlen(d.tmp)) == 0)
+                if (ft_strncmp(d.tmp, g_d.env[d.envi], ft_strlen(d.tmp)) == 0)
                 {
-                    d.tmp = ft_strchr(environ[d.envi], '=') + 1;
+                    d.tmp = ft_strchr(g_d.env[d.envi], '=') + 1;
                     n_args = ft_strjoin(d.prev, d.tmp);
                     n_args = ft_strjoin(n_args, d.str);
                     d.i = 0;
@@ -62,9 +62,3 @@ char	*dollar_bils(char *n_args)
     }   
     return (n_args);
 }
-
-// void	run(char **cmargs)
-// {
-// 	if (ft_strncmp(cmargs[0], "export", 6) != 0 && ft_strncmp(cmargs[0], "env", 3) != 0 && ft_strncmp(cmargs[0], "unset", 5) != 0)
-	
-// }
