@@ -46,15 +46,14 @@ int	child_process(int old_p[], int new_p[], int i)
 		j = 0;
 		while (g_d.command_args[j])
 			rm_quote(g_d.command_args[j++]);
-		if (ft_strncmp(g_d.command_args[0], "export", 6) == 0)
-			exportal(g_d.command_args);
+		run_ex_un_env(g_d.command_args);
 		if (access(g_d.command_args[0], X_OK) != 0)
 			g_d.command = find_path(g_d.command_args);
 		else
 			g_d.command = g_d.command_args[0];
-		if (ft_strncmp(g_d.command_args[0], "export", 6) != 0)
+		if ((ft_strncmp(g_d.command_args[0], "export", 6) != 0) && ft_strncmp(g_d.command_args[0], "unset", 5) != 0)
 		{
-			execve(g_d.command, g_d.command_args, environ);
+			execve(g_d.command, g_d.command_args, g_d.env);
 			perror("execve");
 		}
 	}

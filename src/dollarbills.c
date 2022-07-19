@@ -62,3 +62,9 @@ char	*dollar_bils(char *n_args)
     }   
     return (n_args);
 }
+
+// void	run(char **cmargs)
+// {
+// 	if (ft_strncmp(cmargs[0], "export", 6) != 0 && ft_strncmp(cmargs[0], "env", 3) != 0 && ft_strncmp(cmargs[0], "unset", 5) != 0)
+	
+// }

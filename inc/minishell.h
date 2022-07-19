@@ -91,13 +91,15 @@ char    	*replace(char *n_args, t_dollar *d);
 t_dollar    *find(char *n_args, t_dollar *d);
 void		rm_quote(char *str);
 void		exportal(char **cmargs);
-char    	**env_keys(char **environ);
+char    	**env_keys(void);
 bool		check_key(char *cmargs);
 int			env_size(char **environ);
 char		**ft_fill_envs(void);
 void		print_envs(void);
 void		add_var(char **cmargs);
 void		ch_var(char **cmargs);
+void		rm_var(char **cmargs);
+void		run_ex_un_env(char **cmargs);
 
 
 
