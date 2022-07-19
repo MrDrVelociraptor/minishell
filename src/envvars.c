@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:21:36 by nspeedy           #+#    #+#             */
-/*   Updated: 2022/07/19 16:33:05 by alex             ###   ########.fr       */
+/*   Updated: 2022/07/19 16:49:33 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ extern t_data	g_d;
 void	run_ex_un_env(char **cmargs)
 {
 	if (ft_strncmp(cmargs[0], "export", 6) == 0)
-		exportal(cmargs);
-	if (ft_strncmp(cmargs[0], "env", 3) == 0)
 		exportal(cmargs);
 	if (ft_strncmp(cmargs[0], "unset", 5) == 0)
 		exportal(cmargs);
@@ -106,8 +104,6 @@ void	exportal(char **cmargs)
 			rm_var(cmargs);
 	}
 	else if (ft_strncmp("export", cmargs[0], 6) == 0 && !cmargs[1]) 
-		print_envs();
-	else if (ft_strncmp("env", cmargs[0], 3) == 0 && !cmargs[1])	
 		print_envs();
 }
 
