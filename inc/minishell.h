@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nspeedy <nspeedy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 15:45:14 by nspeedy           #+#    #+#             */
-/*   Updated: 2022/07/18 18:03:42 by nspeedy          ###   ########.fr       */
+/*   Updated: 2022/07/19 14:56:33 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ void		add_var(char **cmargs);
 void		ch_var(char **cmargs);
 void		rm_var(char **cmargs);
 void		run_ex_un_env(char **cmargs);
+bool		check_key_un(char *cmargs);
 
 
 

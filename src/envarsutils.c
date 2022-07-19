@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envarsutils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nspeedy <nspeedy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:21:36 by nspeedy           #+#    #+#             */
-/*   Updated: 2022/07/18 17:20:46 by nspeedy          ###   ########.fr       */
+/*   Updated: 2022/07/19 15:03:45 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,26 @@ bool	check_key(char *cmargs)
 	while (keys[i])
 	{
 		if (ft_strncmp(keys[i], tmp, ft_strlen(keys[i])) == 0)
+		{
+			return (true);
+		}
+		i++;
+	}
+	return (false);
+}
+
+bool	check_key_un(char *cmargs)
+{
+	int		i;
+	char	**keys;
+
+	i = 0;
+	if (cmargs == NULL)
+		return (true);
+	keys = env_keys();
+	while (keys[i])
+	{
+		if (ft_strncmp(keys[i], cmargs, ft_strlen(cmargs)) == 0)
 			return (true);
 		i++;
 	}

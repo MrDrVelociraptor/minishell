@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envvars.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nspeedy <nspeedy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:21:36 by nspeedy           #+#    #+#             */
-/*   Updated: 2022/07/18 18:12:47 by nspeedy          ###   ########.fr       */
+/*   Updated: 2022/07/19 15:04:07 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	run_ex_un_env(char **cmargs)
 		exportal(cmargs);
 	if (ft_strncmp(cmargs[0], "unset", 5) == 0)
 		exportal(cmargs);
-	
 }
 
 void	ch_var(char **cmargs)
@@ -82,7 +81,9 @@ void	rm_var(char **cmargs)
 	{
 		tmp = ft_strchr(g_d.env[i], '=') + 1;
 		if (ft_strncmp(g_d.env[i], cmargs[1], ft_strlen(g_d.env[i]) - ft_strlen(tmp)) == 0)
+		{
 			g_d.env[i] = ft_strdup(g_d.env[j]);
+		}
 		if (g_d.env[j] == NULL)
 			g_d.env[i] = NULL;
 		i++;
@@ -96,16 +97,12 @@ void	exportal(char **cmargs)
 	{
 		if (check_key(cmargs[1]) == false)
 			add_var(cmargs);
-	}
-	if (ft_strncmp("export", cmargs[0], 6) == 0 && cmargs[1])
-	{
-		if (check_key(cmargs[1]) == true)
+		else if (check_key(cmargs[1]) == true)
 			ch_var(cmargs);
 	}
 	if (ft_strncmp("unset", cmargs[0], 5) == 0 && cmargs[1])
 	{
-		printf("rm_vars key was good\n");
-		if (check_key(cmargs[1]) == true)
+		if (check_key_un(cmargs[1]) == true)
 			rm_var(cmargs);
 	}
 	if (ft_strncmp("export", cmargs[0], 6) == 0 && !cmargs[1]) 
