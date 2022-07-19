@@ -97,6 +97,7 @@ int			env_size(char **environ);
 char		**ft_fill_envs(void);
 void		print_envs(void);
 void		add_var(char **cmargs);
+void		ch_var(char **cmargs);
 
 
 

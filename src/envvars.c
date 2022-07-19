@@ -33,9 +33,6 @@ char 	**ft_fill_envs(void)
 
 	i = 0;
 	j = env_size(environ);
-	printf("here\n");
-
-	// printf("here\n");
 	env = (char **)calloc(sizeof(char *), j);
 	while (environ[i])
 	{
@@ -58,6 +55,27 @@ void	print_envs(void)
 	}
 }
 
+void	ch_var(char **cmargs)
+{
+	int		i;
+	char	*tmp;
+
+	i = 0;
+	while (g_d.env && g_d.env[i])
+		i++;
+	// tmp = malloc(sizeof(t_env) * i);
+	i = 0;
+	while (g_d.env && g_d.env[i])
+	{
+		tmp = ft_strchr(g_d.env[i], '=') + 1;
+		printf("tmp = %s\n", tmp);
+		if (ft_strncmp(g_d.env[i], cmargs[1], ft_strlen(g_d.env[i]) - ft_strlen(tmp)) == 0)
+			g_d.env[i] = ft_strdup(cmargs[1]);
+		i++;
+	}
+	// execve("export", g_d.command_args, g_d.env);
+}
+
 void	add_var(char **cmargs)
 {
 	int		i;
@@ -67,40 +85,40 @@ void	add_var(char **cmargs)
 	i = 0;
 	while (g_d.env && g_d.env[i])
 		i++;
-	printf("i up top %d\n", i);
-
 	j = i + 1;
 	tmp = malloc(sizeof(t_env) * j);
 	i = 0;
 	while (g_d.env && g_d.env[i])
 	{
-		printf("i ==== %d\n", i);
 		tmp[i] = ft_strdup(g_d.env[i]);
 		i++;
 	}
-	printf("********** %d\n", j);
-
 	tmp[i] = ft_strdup(cmargs[1]);
-	printf("cmargs === %s\n", tmp[i]);
 	free(g_d.env);
 	tmp[i + 1] = '\0';
 	g_d.env = tmp;
+	// execve("export", g_d.command_args, g_d.env);
 }
 
 bool	exportal(char **cmargs)
 {
-	if (ft_strncmp("export", cmargs[0], 6) == 0 && check_key(cmargs[1]) == false)
+	if (ft_strncmp("export", cmargs[0], 6) == 0 && cmargs[1])
 	{
-		printf("hello\n");
-		printf("here *** %d\n", check_key(cmargs[1]));
-	
-
-			printf("now here\n");
+		if (check_key(cmargs[1]) == false)
+		{
+			printf("hello false\n");
 			add_var(cmargs);
-			
 			return (true);
-
-
+		}
+	}
+	if (ft_strncmp("export", cmargs[0], 6) == 0 && cmargs[1])
+	{
+		if (check_key(cmargs[1]) == true)
+		{
+			printf("hello true\n");
+			ch_var(cmargs);
+			return (true);
+		}
 	}
 	else 
 		print_envs();
