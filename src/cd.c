@@ -1,19 +1,34 @@
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: arowe <arowe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 16:26:22 by alex              #+#    #+#             */
-/*   Updated: 2022/07/13 16:48:22 by alex             ###   ########.fr       */
+/*   Updated: 2022/07/25 16:21:28 by arowe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 extern t_data	g_d;
+
+char	*check_key_cd(char *cmargs)
+{
+	int		i;
+
+	i = 0;
+	if (cmargs == NULL)
+		return (NULL);
+	while (g_d.env[i])
+	{
+		if (ft_strncmp(g_d.env[i], cmargs, ft_strlen(cmargs)) == 0)
+			return (ft_strchr(g_d.env[i], '=') + 1);
+		i++;
+	}
+	return (NULL);
+}
 
 void	ch_cwd(char path[], char oldpath[])
 {
@@ -40,6 +55,13 @@ int	cd(void)
 
 	if (ft_strncmp(g_d.command_args[0], "cd", 2) == 0)
 	{
+		if (!g_d.command_args[1])
+		{
+			getcwd(o, sizeof(o));
+			chdir(check_key_cd("HOME"));
+			ch_cwd(check_key_cd("HOME"), o);
+			return (0);
+		}
 		getcwd(o, sizeof(o));
 		chdir(g_d.command_args[1]);
 		getcwd(c, sizeof(c));

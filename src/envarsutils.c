@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envarsutils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: arowe <arowe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:21:36 by nspeedy           #+#    #+#             */
-/*   Updated: 2022/07/19 16:49:55 by alex             ###   ########.fr       */
+/*   Updated: 2022/07/25 14:19:07 by arowe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,19 @@ char 	**ft_fill_envs(void)
 
 	i = 0;
 	j = env_size(environ);
-	env = (char **)calloc(sizeof(char *), j);
+	env = (char **)calloc(sizeof(char *), j + 1);
 	while (environ[i])
 	{
 		env[i] = ft_strdup(environ[i]);
 		i++;
 	}
-	env[i + 1] = NULL;
+	env[i] = NULL;
 	return (env);
 }
 
 void	print_envs(void)
 {
-	int			i;
+	int	i;
 
 	i = 0;
 	while (g_d.env && g_d.env[i])

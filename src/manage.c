@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manage.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: arowe <arowe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 12:56:33 by nspeedy           #+#    #+#             */
-/*   Updated: 2022/07/19 16:41:32 by alex             ###   ########.fr       */
+/*   Updated: 2022/07/25 16:18:04 by arowe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,12 @@ int	child_process(int old_p[], int new_p[], int i)
 			rm_quote(g_d.command_args[j++]);
 		run_ex_un_env(g_d.command_args);
 		cd();
-		if (access(g_d.command_args[0], X_OK) != 0)
+		if (access(g_d.command_args[0], X_OK) != 0 && ft_strncmp(g_d.command_args[0], "export", 6) && ft_strncmp(g_d.command_args[0], "unset", 5) && ft_strncmp(g_d.command_args[0], "cd", 2))
 			g_d.command = find_path(g_d.command_args);
 		else
 			g_d.command = g_d.command_args[0];
+		// for (int j=0;g_d.env[j];j++)
+		// 	printf("%s\n", g_d.env[j]);
 		if (ft_strncmp(g_d.command_args[0], "export", 6) && ft_strncmp(g_d.command_args[0], "unset", 5) && ft_strncmp(g_d.command_args[0], "cd", 2))
 		{
 			execve(g_d.command, g_d.command_args, g_d.env);
