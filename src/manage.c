@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manage.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arowe <arowe@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nspeedy <nspeedy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 12:56:33 by nspeedy           #+#    #+#             */
-/*   Updated: 2022/07/25 16:18:04 by arowe            ###   ########.fr       */
+/*   Updated: 2022/07/25 17:08:42 by nspeedy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ int	child_process(int old_p[], int new_p[], int i)
 			g_d.command = find_path(g_d.command_args);
 		else
 			g_d.command = g_d.command_args[0];
-		// for (int j=0;g_d.env[j];j++)
-		// 	printf("%s\n", g_d.env[j]);
 		if (ft_strncmp(g_d.command_args[0], "export", 6) && ft_strncmp(g_d.command_args[0], "unset", 5) && ft_strncmp(g_d.command_args[0], "cd", 2))
 		{
 			execve(g_d.command, g_d.command_args, g_d.env);

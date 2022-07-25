@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirect.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nspeedy <nspeedy@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/25 17:11:29 by nspeedy           #+#    #+#             */
+/*   Updated: 2022/07/25 17:17:16 by nspeedy          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-extern t_data g_d;
+extern t_data	g_d;
 
 static int	ft_fillsplit(const char *str, char **split, int len, char delim)
 {
@@ -75,13 +87,13 @@ int	heredoc(char *eof)
 
 int	redirect(int i)
 {
-    int j;
-    int fd;
-	char **r;
+	int		j;
+	int		fd;
+	char	**r;
 
-    j = 1;
+	j = 1;
 	r = single_split(g_d.arglist[i], '>');
-    while (r[j])
+	while (r[j])
 	{
 		if (r[j][0] == '>')
 			fd = open(space_split(r[j] + 1, ' ')[0], O_WRONLY | O_APPEND | O_CREAT, 0644);
@@ -96,7 +108,7 @@ int	redirect(int i)
 	free(r);
 	j = 1;
 	r = single_split(g_d.arglist[i], '<');
-    while (r[j])
+	while (r[j])
 	{
 		if (r[j][0] == '<')
 		{

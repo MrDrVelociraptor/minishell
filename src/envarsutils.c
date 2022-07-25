@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envarsutils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arowe <arowe@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nspeedy <nspeedy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:21:36 by nspeedy           #+#    #+#             */
-/*   Updated: 2022/07/25 14:19:07 by arowe            ###   ########.fr       */
+/*   Updated: 2022/07/25 17:02:38 by nspeedy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ int	env_size(char **environ)
 	return (i);
 }
 
-char 	**ft_fill_envs(void)
+char	**ft_fill_envs(void)
 {
-	int	i;
-	int	j;
-	char **env;
+	int		i;
+	int		j;
+	char	**env;
 
 	i = 0;
 	j = env_size(environ);
@@ -96,24 +96,6 @@ bool	check_key(char *cmargs)
 		{
 			return (true);
 		}
-		i++;
-	}
-	return (false);
-}
-
-bool	check_key_un(char *cmargs)
-{
-	int		i;
-	char	**keys;
-
-	i = 0;
-	if (cmargs == NULL)
-		return (true);
-	keys = env_keys();
-	while (keys[i])
-	{
-		if (ft_strncmp(keys[i], cmargs, ft_strlen(cmargs)) == 0)
-			return (true);
 		i++;
 	}
 	return (false);

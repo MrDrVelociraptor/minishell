@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envvars.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arowe <arowe@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nspeedy <nspeedy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:21:36 by nspeedy           #+#    #+#             */
-/*   Updated: 2022/07/25 16:05:28 by arowe            ###   ########.fr       */
+/*   Updated: 2022/07/25 17:25:35 by nspeedy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	run_ex_un_env(char **cmargs)
 		exportal(cmargs);
 	if (ft_strncmp(cmargs[0], "unset", 5) == 0)
 		exportal(cmargs);
-	
 }
 
 void	ch_var(char **cmargs)
@@ -35,7 +34,8 @@ void	ch_var(char **cmargs)
 	while (g_d.env && g_d.env[i])
 	{
 		tmp = ft_strchr(g_d.env[i], '=') + 1;
-		if (ft_strncmp(g_d.env[i], cmargs[1], ft_strlen(g_d.env[i]) - ft_strlen(tmp)) == 0)
+		if (ft_strncmp(g_d.env[i], cmargs[1],
+				ft_strlen(g_d.env[i]) - ft_strlen(tmp)) == 0)
 			g_d.env[i] = ft_strdup(cmargs[1]);
 		i++;
 	}
@@ -44,7 +44,7 @@ void	ch_var(char **cmargs)
 void	add_var(char **cmargs)
 {
 	int		i;
-	int 	j;
+	int		j;
 	char	**tmp;
 
 	i = 0;
@@ -64,7 +64,12 @@ void	add_var(char **cmargs)
 	g_d.env = tmp;
 }
 
-void	rm_var(char **cmargs)
+// char	**make_smaller(char **new, bool isgone, char **c)
+// {
+
+// }
+
+void	rm_var(char **c)
 {
 	int		i;
 	int		j;
@@ -80,7 +85,7 @@ void	rm_var(char **cmargs)
 	isgone = false;
 	while (g_d.env && g_d.env[j])
 	{
-		if (ft_strncmp(g_d.env[i], cmargs[1], ft_strlen(cmargs[1])) == 0 || isgone)
+		if (ft_strncmp(g_d.env[i], c[1], ft_strlen(c[1])) == 0 || isgone)
 		{
 			new[i] = ft_strdup(g_d.env[j]);
 			isgone = true;
@@ -108,7 +113,6 @@ void	exportal(char **cmargs)
 		if (check_key_un(cmargs[1]) == true)
 			rm_var(cmargs);
 	}
-	else if (ft_strncmp("export", cmargs[0], 6) == 0 && !cmargs[1]) 
+	else if (ft_strncmp("export", cmargs[0], 6) == 0 && !cmargs[1])
 		print_envs();
 }
-
