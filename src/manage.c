@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manage.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nspeedy <nspeedy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 12:56:33 by nspeedy           #+#    #+#             */
-/*   Updated: 2022/07/25 17:08:42 by nspeedy          ###   ########.fr       */
+/*   Updated: 2022/07/26 08:54:41 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,11 @@ int	child_process(int old_p[], int new_p[], int i)
 			rm_quote(g_d.command_args[j++]);
 		run_ex_un_env(g_d.command_args);
 		cd();
-		if (access(g_d.command_args[0], X_OK) != 0 && ft_strncmp(g_d.command_args[0], "export", 6) && ft_strncmp(g_d.command_args[0], "unset", 5) && ft_strncmp(g_d.command_args[0], "cd", 2))
+		if (access(g_d.command_args[0], X_OK) != 0 && is_builtin())
 			g_d.command = find_path(g_d.command_args);
 		else
 			g_d.command = g_d.command_args[0];
-		if (ft_strncmp(g_d.command_args[0], "export", 6) && ft_strncmp(g_d.command_args[0], "unset", 5) && ft_strncmp(g_d.command_args[0], "cd", 2))
+		if (is_builtin())
 		{
 			execve(g_d.command, g_d.command_args, g_d.env);
 			printf("%s: command not found\n", g_d.command_args[0]);

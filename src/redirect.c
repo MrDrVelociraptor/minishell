@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nspeedy <nspeedy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 17:11:29 by nspeedy           #+#    #+#             */
-/*   Updated: 2022/07/25 17:17:16 by nspeedy          ###   ########.fr       */
+/*   Updated: 2022/07/26 09:12:49 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ static int	ft_fillsplit(const char *str, char **split, int len, char delim)
 	while (s.i < len)
 	{
 		s.j = 0;
-		while ((str[s.i + s.j] != delim || s.inquote || str[s.i + s.j - 1] == delim) && str[s.i + s.j])
+		while ((str[s.i + s.j] != delim
+				|| s.inquote || str[s.i + s.j - 1] == delim)
+			&& str[s.i + s.j])
 		{
 			check_quotes(&s, str, s.i + s.j);
 			s.j++;
@@ -85,27 +87,12 @@ int	heredoc(char *eof)
 	return (p[0]);
 }
 
-int	redirect(int i)
+int	redir_in(int i)
 {
 	int		j;
 	int		fd;
 	char	**r;
 
-	j = 1;
-	r = single_split(g_d.arglist[i], '>');
-	while (r[j])
-	{
-		if (r[j][0] == '>')
-			fd = open(space_split(r[j] + 1, ' ')[0], O_WRONLY | O_APPEND | O_CREAT, 0644);
-		else
-			fd = open(space_split(r[j], ' ')[0], O_CREAT | O_RDWR | O_TRUNC, 0644);
-		dup2(fd, 1);
-		close(fd);
-		j++;
-	}
-	if (j > 1)
-		*ft_strchr(g_d.arglist[i], '>') = '\0';
-	free(r);
 	j = 1;
 	r = single_split(g_d.arglist[i], '<');
 	while (r[j])
@@ -124,5 +111,33 @@ int	redirect(int i)
 	}
 	if (j > 1)
 		*ft_strchr(g_d.arglist[i], '<') = '\0';
+	return (0);
+}
+
+int	redirect(int i)
+{
+	int		j;
+	int		fd;
+	char	**r;
+
+	j = 1;
+	r = single_split(g_d.arglist[i], '>');
+	while (r[j])
+	{
+		if (r[j][0] == '>')
+			fd = open(space_split(r[j] + 1, ' ')[0],
+					O_WRONLY | O_APPEND | O_CREAT, 0644);
+		else
+			fd = open(space_split(r[j], ' ')[0],
+					O_CREAT | O_RDWR | O_TRUNC, 0644);
+		dup2(fd, 1);
+		close(fd);
+		j++;
+	}
+	if (j > 1)
+		*ft_strchr(g_d.arglist[i], '>') = '\0';
+	free(r);
+	if (redir_in(i))
+		return (1);
 	return (0);
 }

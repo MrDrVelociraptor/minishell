@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envvars.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nspeedy <nspeedy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:21:36 by nspeedy           #+#    #+#             */
-/*   Updated: 2022/07/25 17:25:35 by nspeedy          ###   ########.fr       */
+/*   Updated: 2022/07/26 09:00:00 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,7 @@ void	rm_var(char **c)
 	char	**new;
 
 	i = 0;
-	while (g_d.env[i])
-		i++;
+	while (g_d.env[i++])
 	new = (char **)malloc(sizeof(char *) * i);
 	i = 0;
 	j = i + 1;

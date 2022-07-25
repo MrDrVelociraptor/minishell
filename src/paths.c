@@ -3,16 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   paths.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arowe <arowe@student.42.fr>                +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 12:50:59 by nspeedy           #+#    #+#             */
-/*   Updated: 2022/07/25 16:08:10 by arowe            ###   ########.fr       */
+/*   Updated: 2022/07/26 08:51:25 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 extern t_data	g_d;
+
+bool	is_builtin(void)
+{
+	return (ft_strncmp(g_d.command_args[0], "export", 6)
+		&& ft_strncmp(g_d.command_args[0], "unset", 5)
+		&& ft_strncmp(g_d.command_args[0], "cd", 2));
+}
 
 char	*check_access(char **paths, char *cmd[])
 {
