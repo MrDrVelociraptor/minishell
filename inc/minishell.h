@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nspeedy <nspeedy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 15:45:14 by nspeedy           #+#    #+#             */
-/*   Updated: 2022/07/26 08:50:31 by alex             ###   ########.fr       */
+/*   Updated: 2022/07/28 10:24:55 by nspeedy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,14 @@ typedef struct s_split
 	bool	inquote;
 	char	c;
 }	t_split;
-	
 
 typedef struct s_dollar
 {
-	int     find;
-    int     found;
-    int     i;
+	int		find;
+	int		found;
+	int		i;
 	int		n;
-    char    *env_arg;
+	char	*env_arg;
 	char	*str;
 	char	*tmp;
 	char	*prev;
@@ -67,7 +66,6 @@ typedef struct s_env
 {
 	char			**n_env;
 }	t_env;
-
 
 extern char	**environ;
 char		*find_path(char *cmd[]);
@@ -81,17 +79,17 @@ int			bad_pipe(int new_p[], int i);
 int			child_process(int old_p[], int new_p[], int i);
 void		parent_process(int old_p[], int new_p[], int i);
 int			manage(int old_p[], int new_p[]);
-int	    	redirect(int i);
+int			redirect(int i);
 void		siggles(void);
 char		*dollar_bils(char *n_args);
 char		*inside(char *n_args, t_dollar *d);
 void		check_quotes(t_split *sp, const char *s, int i);
 char		**space_split(const char *s, char delim);
-char    	*replace(char *n_args, t_dollar *d);
-t_dollar    *find(char *n_args, t_dollar *d);
+char		*replace(char *n_args, t_dollar *d);
+t_dollar	*find(char *n_args, t_dollar *d);
 void		rm_quote(char *str);
 void		exportal(char **cmargs);
-char    	**env_keys(void);
+char		**env_keys(void);
 bool		check_key(char *cmargs);
 int			env_size(char **environ);
 char		**ft_fill_envs(void);
@@ -103,7 +101,5 @@ void		run_ex_un_env(char **cmargs);
 bool		check_key_un(char *cmargs);
 int			cd(void);
 bool		is_builtin(void);
-
-
 
 #endif
