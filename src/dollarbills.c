@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 16:04:01 by nspeedy           #+#    #+#             */
-/*   Updated: 2022/07/28 13:40:09 by alex             ###   ########.fr       */
+/*   Updated: 2022/07/28 21:50:45 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_dollar	*find(char *n_args, t_dollar *d)
 			d->i++;
 		}
 		d->prev = ft_substr(n_args, 0, d->find - 1);
-		d->tmp = ft_substr(n_args, d->find, d->found - d->find);
+		d->tmp = ft_substr(n_args, d->find, d->found - d->find + 1);
 		d->str = ft_substr(n_args, d->found + 1, ft_strlen(n_args));
 	}
 	return (d);
@@ -38,13 +38,18 @@ t_dollar	*find(char *n_args, t_dollar *d)
 
 bool	isdollar(t_dollar *d, char **n_args)
 {
+	int	first_len;
+	int	offset;
+	
 	if (ft_strncmp(d->tmp, g_d.env[d->envi], ft_strlen(d->tmp)) == 0)
 	{
+		first_len = ft_strlen(d->tmp) + 1;
 		d->tmp = ft_strchr(g_d.env[d->envi], '=') + 1;
+		offset = first_len - ft_strlen(d->tmp);
 		*n_args = ft_strjoin(d->prev, d->tmp);
 		*n_args = ft_strjoin(*n_args, d->str);
-		d->i = 0;
 		d->envi = 0;
+		d->i -= offset;
 		return (true);
 	}
 	return (false);
@@ -62,6 +67,11 @@ char	*dollar_bils(char *n_args)
 	{
 		if (n_args[d.i] == '\'')
 			q.inq = true;
+		if (n_args[d.i] == '"' && q.indq)
+		{
+			d.i++;
+			q.indq = false;
+		}
 		if (n_args[d.i] == '"')
 			q.indq = true;
 		if (n_args[d.i++] == '$' && (!q.inq || q.indq))
@@ -74,6 +84,7 @@ char	*dollar_bils(char *n_args)
 				d.envi++;
 			}
 		}
+		
 		d.find = 0;
 	}
 	return (n_args);
