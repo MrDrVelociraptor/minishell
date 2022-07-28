@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nspeedy <nspeedy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 12:51:11 by nspeedy           #+#    #+#             */
-/*   Updated: 2022/07/25 17:02:16 by nspeedy          ###   ########.fr       */
+/*   Updated: 2022/07/28 13:47:52 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,15 @@ bool	check_key_un(char *cmargs)
 		i++;
 	}
 	return (false);
+}
+
+void	q_check(t_split *s, const char *src, int track)
+{
+	if (s->inquote)
+		s->inquote = false;
+	else
+	{
+		s->c = src[track];
+		s->inquote = true;
+	}	
 }

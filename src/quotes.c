@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 16:03:37 by nspeedy           #+#    #+#             */
-/*   Updated: 2022/07/13 11:29:05 by alex             ###   ########.fr       */
+/*   Updated: 2022/07/28 13:47:48 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	check_quotes(t_split *sp, const char *s, int i)
 			sp->inquote = false;
 			sp->c = '\0';
 		}
+		else if (sp->inquote)
+			return ;
 		else
 		{
 			sp->inquote = true;
@@ -36,21 +38,24 @@ static size_t	new_strlcpy(char *dest, const char *src, size_t size)
 	size_t	track;
 	size_t	length;
 	size_t	offset;
+	t_split	s;
 
-	track = 0;
-	while (src[track] != '\0')
-		track++;
-	length = track;
+	length = ft_strlen(src);
 	if (size == 0)
 		return (length);
 	track = 0;
 	offset = 0;
+	s.inquote = false;
 	while (src[track] && track < size)
 	{
-		if (src[track] != '\'' && src[track] != '"')
+		if ((src[track] != '\'' && src[track] != '"')
+			|| (s.inquote && src[track] != s.c))
 			dest[track - offset] = src[track];
 		else
+		{
+			q_check(&s, src, track);
 			offset++;
+		}
 		track++;
 	}
 	dest[track - offset] = '\0';

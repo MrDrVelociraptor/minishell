@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nspeedy <nspeedy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 15:45:14 by nspeedy           #+#    #+#             */
-/*   Updated: 2022/07/28 10:24:55 by nspeedy          ###   ########.fr       */
+/*   Updated: 2022/07/28 13:48:21 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,12 @@ typedef struct s_env
 	char			**n_env;
 }	t_env;
 
+typedef	struct s_qbool
+{
+	bool	inq;
+	bool	indq;
+}	t_qbool;
+
 extern char	**environ;
 char		*find_path(char *cmd[]);
 char		*check_access(char **paths, char *cmd[]);
@@ -101,5 +107,6 @@ void		run_ex_un_env(char **cmargs);
 bool		check_key_un(char *cmargs);
 int			cd(void);
 bool		is_builtin(void);
+void		q_check(t_split *s, const char *src, int track);
 
 #endif

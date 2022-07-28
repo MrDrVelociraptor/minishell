@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollarbills.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arowe <arowe@student.42.fr>                +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 16:04:01 by nspeedy           #+#    #+#             */
-/*   Updated: 2022/07/25 16:50:15 by arowe            ###   ########.fr       */
+/*   Updated: 2022/07/28 13:40:09 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ t_dollar	*find(char *n_args, t_dollar *d)
 	else
 	{
 		while (n_args[d->i] != '$'
-			&& n_args[d->i] != ' ' && n_args[d->i] != '\0')
+			&& n_args[d->i] != ' ' && n_args[d->i] != '\0'
+			&& n_args[d->i] != '\'' && n_args[d->i] != '"')
 		{
 			d->found++;
 			d->i++;
@@ -52,15 +53,18 @@ bool	isdollar(t_dollar *d, char **n_args)
 char	*dollar_bils(char *n_args)
 {
 	t_dollar	d;
-	bool		inquote;
+	t_qbool		q;
 
 	memset(&d, 0, sizeof(t_dollar));
-	inquote = false;
+	q.inq = false;
+	q.indq = false;
 	while (n_args[d.i] != '\0')
 	{
 		if (n_args[d.i] == '\'')
-			inquote = true;
-		if (n_args[d.i++] == '$' && !inquote)
+			q.inq = true;
+		if (n_args[d.i] == '"')
+			q.indq = true;
+		if (n_args[d.i++] == '$' && (!q.inq || q.indq))
 		{
 			find(n_args, &d);
 			while (g_d.env[d.envi])
