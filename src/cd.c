@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arowe <arowe@student.42.fr>                +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 16:26:22 by alex              #+#    #+#             */
-/*   Updated: 2022/07/25 16:21:28 by arowe            ###   ########.fr       */
+/*   Updated: 2022/07/28 23:35:48 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*check_key_cd(char *cmargs)
 
 void	ch_cwd(char path[], char oldpath[])
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (g_d.env && g_d.env[i])
@@ -55,14 +55,17 @@ int	cd(void)
 
 	if (ft_strncmp(g_d.command_args[0], "cd", 2) == 0)
 	{
-		if (!g_d.command_args[1])
-		{
-			getcwd(o, sizeof(o));
-			chdir(check_key_cd("HOME"));
-			ch_cwd(check_key_cd("HOME"), o);
-			return (0);
-		}
 		getcwd(o, sizeof(o));
+		if (!g_d.command_args[1] || g_d.command_args[1][0] == '~')
+		{
+			chdir(check_key_cd("HOME"));
+			if (!g_d.command_args[1][1])
+			{
+				ch_cwd(check_key_cd("HOME"), o);
+				return (0);
+			}
+			g_d.command_args[1] += 2;
+		}
 		chdir(g_d.command_args[1]);
 		getcwd(c, sizeof(c));
 		ch_cwd(c, o);
