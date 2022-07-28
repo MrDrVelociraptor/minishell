@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 16:04:01 by nspeedy           #+#    #+#             */
-/*   Updated: 2022/07/28 21:50:45 by alex             ###   ########.fr       */
+/*   Updated: 2022/07/28 22:32:00 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ bool	isdollar(t_dollar *d, char **n_args)
 {
 	int	first_len;
 	int	offset;
-	
+
 	if (ft_strncmp(d->tmp, g_d.env[d->envi], ft_strlen(d->tmp)) == 0)
 	{
 		first_len = ft_strlen(d->tmp) + 1;
@@ -55,6 +55,19 @@ bool	isdollar(t_dollar *d, char **n_args)
 	return (false);
 }
 
+void	handle_quotes(t_dollar *d, t_qbool *q, char *n_args)
+{
+	if (n_args[d->i] == '\'')
+		q->inq = true;
+	if (n_args[d->i] == '"' && q->indq)
+	{
+		d->i++;
+		q->indq = false;
+	}
+	if (n_args[d->i] == '"')
+		q->indq = true;
+}
+
 char	*dollar_bils(char *n_args)
 {
 	t_dollar	d;
@@ -65,15 +78,7 @@ char	*dollar_bils(char *n_args)
 	q.indq = false;
 	while (n_args[d.i] != '\0')
 	{
-		if (n_args[d.i] == '\'')
-			q.inq = true;
-		if (n_args[d.i] == '"' && q.indq)
-		{
-			d.i++;
-			q.indq = false;
-		}
-		if (n_args[d.i] == '"')
-			q.indq = true;
+		handle_quotes(&d, &q, n_args);
 		if (n_args[d.i++] == '$' && (!q.inq || q.indq))
 		{
 			find(n_args, &d);
@@ -84,7 +89,6 @@ char	*dollar_bils(char *n_args)
 				d.envi++;
 			}
 		}
-		
 		d.find = 0;
 	}
 	return (n_args);

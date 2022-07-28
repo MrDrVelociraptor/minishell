@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 12:50:59 by nspeedy           #+#    #+#             */
-/*   Updated: 2022/07/26 09:18:38 by alex             ###   ########.fr       */
+/*   Updated: 2022/07/28 22:18:07 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ char	*check_access(char **paths, char *cmd[])
 	char	*path;
 
 	i = 0;
+	if (!paths)
+		return (NULL);
 	while (paths[i])
 	{
 		temp = ft_strjoin(paths[i], "/");
@@ -42,8 +44,7 @@ char	*check_access(char **paths, char *cmd[])
 		free(path);
 		i++;
 	}
-	if (paths)
-		free_strarray(paths);
+	free_strarray(paths);
 	return (NULL);
 }
 

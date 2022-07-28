@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nspeedy <nspeedy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 15:45:14 by nspeedy           #+#    #+#             */
-/*   Updated: 2022/07/28 13:56:37 by nspeedy          ###   ########.fr       */
+/*   Updated: 2022/07/28 22:28:17 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ typedef struct s_data
 	char	**command_args;
 	char	**redirect;
 	char	**quotes;
-	char	*command;
 	char	*prompt;
 	int		cmd_amt;
 	int		pid;
@@ -82,7 +81,7 @@ void		exsit(char *cmdline, char **arglist);
 void		redir_pipe(int i);
 void		op_cl(int old_p[], int new_p[], int i);
 int			bad_pipe(int new_p[], int i);
-int			child_process(int old_p[], int new_p[], int i);
+int			child_process(int old_p[], int new_p[], int i, int j);
 void		parent_process(int old_p[], int new_p[], int i);
 int			manage(int old_p[], int new_p[]);
 int			redirect(int i);
